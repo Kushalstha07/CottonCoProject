@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "441913628846",
+    "firebase_url": "https://cottonco-c29c9-default-rtdb.firebaseio.com",
+    "project_id": "cottonco-c29c9",
+    "storage_bucket": "cottonco-c29c9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441913628846:android:ec8c9af42bad3e6459b53f",
+        "android_client_info": {
+          "package_name": "com.example.cottonco"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArW29qooV5XLJjuK17fQVkBpWpp_5B6W0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

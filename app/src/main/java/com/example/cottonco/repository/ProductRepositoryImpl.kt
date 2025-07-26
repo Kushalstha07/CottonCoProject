@@ -89,8 +89,12 @@ class ProductRepositoryImpl : ProductRepository {
                 if(snapshot.exists()){
                     val product = snapshot.getValue((ProductModel::class.java))
                     if(product !=null){
-                        callback(product,false,"product fetched")
+                        callback(product,true,"product fetched")
+                    } else {
+                        callback(null,false,"Failed to parse product data")
                     }
+                } else {
+                    callback(null,false,"Product not found")
                 }
 
             }

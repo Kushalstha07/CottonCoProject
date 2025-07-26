@@ -2,11 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
-    tools:replace="android:fullBackupContent"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,11 +14,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CottonCo"
+        tools:replace="android:fullBackupContent"
         tools:targetApi="31">
+        <activity
+            android:name=".view.CheckoutActivity"
+            android:exported="false"
+            android:label="@string/title_activity_checkout"
+            android:theme="@style/Theme.CottonCo" />
+        <activity
+            android:name=".view.UpdateProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_update_profile"
+            android:theme="@style/Theme.CottonCo" />
         <activity
             android:name=".view.UpdateProductActivity"
             android:exported="false"
             android:label="@string/title_activity_update_product"
+            android:theme="@style/Theme.CottonCo" />
+        <activity
+            android:name=".view.CheckoutActivity"
+            android:exported="false"
+            android:label="@string/title_activity_checkout"
             android:theme="@style/Theme.CottonCo" />
         <activity
             android:name=".view.AddProductActivity"

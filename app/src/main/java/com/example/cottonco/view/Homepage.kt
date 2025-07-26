@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -78,6 +77,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.widthIn
 import com.example.cottonco.view.LoginActivity
+import com.example.cottonco.view.UpdateProfileActivity
+import com.example.cottonco.view.CheckoutActivity
 
 class Homepage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -216,59 +217,84 @@ fun Home1() {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 80.dp)
         ) {
-                if (loading.value) {
-                    item { CircularProgressIndicator(color = Color(0xFF8B4513)) }
-                } else {
-                    items(products.value.size) { index ->
-                        val eachProduct = products.value[index]
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 6.dp, horizontal = 4.dp),
-                            shape = RoundedCornerShape(12.dp),
-                            colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFADA)),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
-                        ) {
-                            Column(modifier = Modifier.padding(12.dp)) {
-                                // Product Image
-                                if (!eachProduct?.image.isNullOrEmpty()) {
-                                    AsyncImage(
-                                        model = eachProduct?.image,
-                                        contentDescription = "Product Image",
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(150.dp)
-                                            .clip(RoundedCornerShape(8.dp)),
-                                        contentScale = ContentScale.Crop
+            if (loading.value) {
+                item { CircularProgressIndicator(color = Color(0xFF8B4513)) }
+            } else {
+                items(products.value.size) { index ->
+                    val eachProduct = products.value[index]
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 6.dp, horizontal = 4.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFFADA)),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            // Product Image
+                            if (!eachProduct?.image.isNullOrEmpty()) {
+                                AsyncImage(
+                                    model = eachProduct?.image,
+                                    contentDescription = "Product Image",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(150.dp)
+                                        .clip(RoundedCornerShape(8.dp)),
+                                    contentScale = ContentScale.Crop
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                            }
+                            Text(
+                                text = eachProduct?.productName ?: "",
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFF8B4513),
+                                fontSize = 16.sp
+                            )
+                            Spacer(modifier = Modifier.height(3.dp))
+                            Text(
+                                text = "Price: $${eachProduct?.price}",
+                                color = Color(0xFFD2691E),
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 14.sp
+                            )
+                            Spacer(modifier = Modifier.height(3.dp))
+                            Text(
+                                text = eachProduct?.description ?: "",
+                                color = Color(0xFF654321),
+                                fontSize = 13.sp
+                            )
+                            // Action Buttons
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                // Buy Now Button
+                                Button(
+                                    onClick = {
+                                        val intent = Intent(context, CheckoutActivity::class.java)
+                                        intent.putExtra("productId", eachProduct?.productId)
+                                        intent.putExtra("productName", eachProduct?.productName)
+                                        intent.putExtra("productPrice", eachProduct?.price)
+                                        intent.putExtra("productImage", eachProduct?.image)
+                                        context.startActivity(intent)
+                                    },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFF8B4513)
+                                    ),
+                                    shape = RoundedCornerShape(8.dp)
+                                ) {
+                                    Text(
+                                        text = "Buy Now",
+                                        color = Color.White,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Medium
                                     )
-                                    Spacer(modifier = Modifier.height(8.dp))
                                 }
                                 
-                                Text(
-                                    text = eachProduct?.productName ?: "",
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color(0xFF8B4513),
-                                    fontSize = 16.sp
-                                )
-                                Spacer(modifier = Modifier.height(3.dp))
-                                Text(
-                                    text = "Price: $${eachProduct?.price}",
-                                    color = Color(0xFFD2691E),
-                                    fontWeight = FontWeight.Medium,
-                                    fontSize = 14.sp
-                                )
-                                Spacer(modifier = Modifier.height(3.dp))
-                                Text(
-                                    text = eachProduct?.description ?: "",
-                                    color = Color(0xFF654321),
-                                    fontSize = 13.sp
-                                )
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.End
-                                ) {
+                                // Edit and Delete buttons
+                                Row {
                                     IconButton(
                                         onClick = {
                                             val intent = Intent(context, UpdateProductActivity::class.java)
@@ -301,7 +327,7 @@ fun Home1() {
             }
         }
     }
-
+}
 
 
 @Composable
@@ -347,7 +373,6 @@ fun Home2() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 80.dp)
     ) {
         // Search Header
         Card(
@@ -545,31 +570,58 @@ fun Home2() {
                             // Action Buttons
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.End
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                IconButton(
+                                // Buy Now Button
+                                Button(
                                     onClick = {
-                                        val intent = Intent(context, UpdateProductActivity::class.java)
-                                        intent.putExtra("productId", "${eachProduct?.productId}")
+                                        val intent = Intent(context, CheckoutActivity::class.java)
+                                        intent.putExtra("productId", eachProduct?.productId)
+                                        intent.putExtra("productName", eachProduct?.productName)
+                                        intent.putExtra("productPrice", eachProduct?.price)
+                                        intent.putExtra("productImage", eachProduct?.image)
                                         context.startActivity(intent)
                                     },
-                                    colors = IconButtonDefaults.iconButtonColors(
-                                        contentColor = Color(0xFFD2691E)
-                                    )
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color(0xFF8B4513)
+                                    ),
+                                    shape = RoundedCornerShape(8.dp)
                                 ) {
-                                    Icon(Icons.Default.Edit, contentDescription = null)
+                                    Text(
+                                        text = "Buy Now",
+                                        color = Color.White,
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.Medium
+                                    )
                                 }
-                                IconButton(
-                                    onClick = {
-                                        viewModel.deleteProduct(eachProduct?.productId.toString()) { success, message ->
-                                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-                                        }
-                                    },
-                                    colors = IconButtonDefaults.iconButtonColors(
-                                        contentColor = Color.Red
-                                    )
-                                ) {
-                                    Icon(Icons.Default.Delete, contentDescription = null)
+                                
+                                // Edit and Delete buttons
+                                Row {
+                                    IconButton(
+                                        onClick = {
+                                            val intent = Intent(context, UpdateProductActivity::class.java)
+                                            intent.putExtra("productId", "${eachProduct?.productId}")
+                                            context.startActivity(intent)
+                                        },
+                                        colors = IconButtonDefaults.iconButtonColors(
+                                            contentColor = Color(0xFFD2691E)
+                                        )
+                                    ) {
+                                        Icon(Icons.Default.Edit, contentDescription = null)
+                                    }
+                                    IconButton(
+                                        onClick = {
+                                            viewModel.deleteProduct(eachProduct?.productId.toString()) { success, message ->
+                                                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                                            }
+                                        },
+                                        colors = IconButtonDefaults.iconButtonColors(
+                                            contentColor = Color.Red
+                                        )
+                                    ) {
+                                        Icon(Icons.Default.Delete, contentDescription = null)
+                                    }
                                 }
                             }
                         }
@@ -709,7 +761,10 @@ fun Home3() {
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         Button(
-                            onClick = { /* TODO: Edit profile */ },
+                            onClick = {
+                                val intent = Intent(context, UpdateProfileActivity::class.java)
+                                context.startActivity(intent)
+                            },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFD2691E)),
                             shape = RoundedCornerShape(12.dp)
                         ) {

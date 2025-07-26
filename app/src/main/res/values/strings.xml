@@ -8,4 +8,6 @@
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="title_activity_add_product">AddProductActivity</string>
     <string name="title_activity_update_product">UpdateProductActivity</string>
+    <string name="title_activity_update_profile">UpdateProfileActivity</string>
+    <string name="title_activity_checkout">CheckoutActivity</string>
 </resources>

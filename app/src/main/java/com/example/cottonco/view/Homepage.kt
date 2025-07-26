@@ -151,15 +151,17 @@ fun HomepageBody() {
             }
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    val intent = Intent(context, AddProductActivity::class.java)
-                    context.startActivity(intent)
-                },
-                containerColor = Color(0xFF8B4513),
-                contentColor = Color.White
-            ) {
-                Icon(Icons.Default.Add, contentDescription = null)
+            if (selectedIndex == 0) { // Only show FAB on Home page
+                FloatingActionButton(
+                    onClick = {
+                        val intent = Intent(context, AddProductActivity::class.java)
+                        context.startActivity(intent)
+                    },
+                    containerColor = Color(0xFF8B4513),
+                    contentColor = Color.White
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = null)
+                }
             }
         }
     ) { innerPadding ->

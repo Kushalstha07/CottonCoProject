@@ -4,6 +4,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_navigation">Navigation</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_cottonco">CottonCo</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_registration">RegistrationActivity</string>
     <string name="title_activity_add_product">AddProductActivity</string>

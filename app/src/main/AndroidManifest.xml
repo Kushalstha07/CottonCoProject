@@ -47,9 +47,9 @@
             android:label="@string/title_activity_registration"
             android:theme="@style/Theme.CottonCo" />
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".view.CottonCo"
             android:exported="true"
-            android:label="@string/title_activity_splash"
+            android:label="@string/title_activity_cottonco"
             android:theme="@style/Theme.CottonCo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

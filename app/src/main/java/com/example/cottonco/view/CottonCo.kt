@@ -32,20 +32,18 @@ import com.example.cottonco.view.Homepage
 import com.example.cottonco.R
 import kotlinx.coroutines.delay
 
-class SplashActivity : ComponentActivity() {
+class CottonCo : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            SplashBody()
-
+            CottonCoBody()
         }
     }
 }
 
 @Composable
-fun SplashBody(){
-
+fun CottonCoBody(){
     val context= LocalContext.current
     val activity= context as Activity
 
@@ -54,7 +52,6 @@ fun SplashBody(){
 //    val localEmail=sharedPreferences.getString("email","").toString()
 
     LaunchedEffect(Unit) {
-
         delay(3000)
 
    //     if (localEmail.isEmpty()){
@@ -67,18 +64,15 @@ fun SplashBody(){
 //            context.startActivity(intent)
 //            activity.finish()
 //        }
-
     }
 
-    Scaffold {
-            padding->
+    Scaffold { padding->
         Column(
             modifier = Modifier.padding(padding).background(Color.White)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Image(
                 painterResource(R.drawable.cottoncologo),
                 contentDescription = null
@@ -88,11 +82,10 @@ fun SplashBody(){
             CircularProgressIndicator()
         }
     }
-
 }
 
 @Preview
 @Composable
-fun PreviewSplashBody(){
-    SplashBody();
+fun PreviewCottonCoBody(){
+    CottonCoBody()
 }

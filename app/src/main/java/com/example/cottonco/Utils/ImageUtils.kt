@@ -2,6 +2,7 @@ package com.example.cottonco.Utils
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -13,7 +14,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import android.content.pm.PackageManager
 
-class ImageUtils(private val activity: Activity, private val registryOwner: ActivityResultRegistryOwner) {
+class ImageUtils(
+    private val activity: Activity,
+    private val context: Context
+) {
+    // Utility class for handling image selection and upload
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private var onImageSelectedCallback: ((Uri?) -> Unit)? = null

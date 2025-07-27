@@ -93,7 +93,7 @@ class Homepage : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomepageBody() {
-
+    // Main homepage with navigation tabs and product management
     data class BottomNavItem(val label: String, val icon: ImageVector)
 
     val bottomNavItems = listOf(

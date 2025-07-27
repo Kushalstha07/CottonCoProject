@@ -80,6 +80,7 @@ class RegistrationActivity : ComponentActivity() {
 
 @Composable
 fun RegisterBody() {
+    // Registration screen with user data collection
     val repo = remember { UserRepositoryImpl() }
     val userViewModel = remember { UserViewModel(repo) }
 

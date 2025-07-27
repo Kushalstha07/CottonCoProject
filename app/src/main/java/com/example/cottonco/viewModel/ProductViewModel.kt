@@ -8,27 +8,9 @@ import androidx.lifecycle.ViewModel
 import com.example.cottonco.model.ProductModel
 import com.example.cottonco.repository.ProductRepository
 
-class ProductViewModel(val repo: ProductRepository) : ViewModel() {
-
-    fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit){
-        repo.uploadImage(context,imageUri,callback)
-    }
-
-    fun addProduct(product: ProductModel, callback: (Boolean, String) -> Unit){
-
-        repo.addProduct(product,callback)
-
-    }
-
-    fun deleteProduct(productId: String, callback: (Boolean, String) -> Unit){
-        repo.deleteProduct(productId,callback)
-    }
-
-    fun updateProduct(productId: String, data: MutableMap<String, Any?>, callback: (Boolean, String) -> Unit){
-        repo.updateProduct(productId,data,callback)
-    }
-
-    private val _products= MutableLiveData<ProductModel?>()
+class ProductViewModel(private val repository: ProductRepository) : ViewModel() {
+    // ViewModel for managing product data and operations
+    private val _products = MutableLiveData<List<ProductModel>>()
     val products: LiveData<ProductModel?>
         get()=_products
 
@@ -39,8 +21,26 @@ class ProductViewModel(val repo: ProductRepository) : ViewModel() {
     val loading: LiveData<Boolean> get() = _loading
 
 
+    fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit){
+        repository.uploadImage(context,imageUri,callback)
+    }
+
+    fun addProduct(product: ProductModel, callback: (Boolean, String) -> Unit){
+
+        repository.addProduct(product,callback)
+
+    }
+
+    fun deleteProduct(productId: String, callback: (Boolean, String) -> Unit){
+        repository.deleteProduct(productId,callback)
+    }
+
+    fun updateProduct(productId: String, data: MutableMap<String, Any?>, callback: (Boolean, String) -> Unit){
+        repository.updateProduct(productId,data,callback)
+    }
+
     fun getProductById(productId: String){
-        repo.getProductById(productId){
+        repository.getProductById(productId){
                 data,success,msg ->
             if(success){
                 _products.postValue(data)
@@ -53,7 +53,7 @@ class ProductViewModel(val repo: ProductRepository) : ViewModel() {
     fun getAllProducts(){
 
         _loading.postValue(true)
-        repo.getAllProducts  { data, success, msg ->
+        repository.getAllProducts  { data, success, msg ->
             if (success) {
                 _loading.postValue(false)
                 _allProducts.postValue(data)

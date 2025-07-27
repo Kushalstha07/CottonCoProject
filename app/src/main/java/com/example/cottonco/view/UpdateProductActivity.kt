@@ -43,6 +43,7 @@ class UpdateProductActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpdateProductBody() {
+    // Update product form with pre-filled data from Firebase
     var name by remember { mutableStateOf("") }
     var price by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }

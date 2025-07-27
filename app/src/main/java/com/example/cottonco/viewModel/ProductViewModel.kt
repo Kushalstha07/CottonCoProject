@@ -10,12 +10,11 @@ import com.example.cottonco.repository.ProductRepository
 
 class ProductViewModel(private val repository: ProductRepository) : ViewModel() {
     // ViewModel for managing product data and operations
-    private val _products = MutableLiveData<List<ProductModel>>()
-    val products: LiveData<ProductModel?>
-        get()=_products
+    private val _products = MutableLiveData<ProductModel?>()
+    val products: LiveData<ProductModel?> get() = _products
 
-    private val _allProducts = MutableLiveData<List<ProductModel?>>()
-    val allProducts: LiveData<List<ProductModel?>> get() = _allProducts
+    private val _allProducts = MutableLiveData<List<ProductModel>>()
+    val allProducts: LiveData<List<ProductModel>> get() = _allProducts
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
@@ -51,18 +50,15 @@ class ProductViewModel(private val repository: ProductRepository) : ViewModel() 
     }
 
     fun getAllProducts(){
-
         _loading.postValue(true)
-        repository.getAllProducts  { data, success, msg ->
+        repository.getAllProducts { data, success, msg ->
             if (success) {
                 _loading.postValue(false)
                 _allProducts.postValue(data)
             } else {
                 _loading.postValue(false)
                 _allProducts.postValue(emptyList())
-
             }
         }
-
     }
 }

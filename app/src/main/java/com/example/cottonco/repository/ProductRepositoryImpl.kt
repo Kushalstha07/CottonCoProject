@@ -17,7 +17,8 @@ import com.cloudinary.utils.ObjectUtils
 
 
 class ProductRepositoryImpl : ProductRepository {
-    val database = FirebaseDatabase.getInstance()
+    // Firebase implementation for product data operations
+    private val database = FirebaseDatabase.getInstance()
     val ref= database.reference.child("products")
 
     private val cloudinary = Cloudinary(

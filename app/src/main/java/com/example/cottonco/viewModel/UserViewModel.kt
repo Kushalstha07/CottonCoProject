@@ -7,32 +7,34 @@ import com.example.cottonco.model.UserModel
 import com.example.cottonco.repository.UserRepository
 import com.google.firebase.auth.FirebaseUser
 
-class UserViewModel(val repo: UserRepository): ViewModel() {
+class UserViewModel(private val repository: UserRepository) : ViewModel() {
+    // ViewModel for managing user authentication and profile data
+    private val _currentUser = MutableLiveData<UserModel?>()
 
     fun login(email: String, password: String, callback: (Boolean, String) -> Unit){
-        repo.login(email,password,callback)
+        repository.login(email,password,callback)
 
     }
     fun register(email: String, password: String, callback: (Boolean, String, String) -> Unit) {
-        repo.register(email, password,callback)
+        repository.register(email, password,callback)
     }
 
     fun forgetPassword(email: String, callback: (Boolean, String) -> Unit){
-        repo.forgetPassword(email,callback)
+        repository.forgetPassword(email,callback)
     }
     fun updataProfile(
         userId: String,
         data: MutableMap<String, Any?>,
         callback: (Boolean, String) -> Unit
     ){
-        repo.updataProfile(userId,data,callback)
+        repository.updataProfile(userId,data,callback)
 
     }
 
 
 
     fun getCurrentUser(): FirebaseUser?{
-        return repo.getCurrentUser()
+        return repository.getCurrentUser()
     }
 
     private val _users = MutableLiveData<UserModel?>()
@@ -40,7 +42,7 @@ class UserViewModel(val repo: UserRepository): ViewModel() {
 
 
     fun getUserById(userId: String, ){
-        repo.getUserById(userId){
+        repository.getUserById(userId){
                 users,success,message->
             if (success && users!=null){
                 _users.postValue(users)
@@ -50,10 +52,10 @@ class UserViewModel(val repo: UserRepository): ViewModel() {
         }
     }
     fun addUsertoDatabase(userId: String, model: UserModel, callback: (Boolean, String) -> Unit){
-        repo.addUsertoDatabase(userId,model,callback)
+        repository.addUsertoDatabase(userId,model,callback)
     }
     fun logout(callback: (Boolean, String) -> Unit){
-        repo.logout(callback)
+        repository.logout(callback)
     }
 
 

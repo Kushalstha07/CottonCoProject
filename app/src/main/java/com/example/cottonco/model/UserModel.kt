@@ -1,7 +1,8 @@
 package com.example.cottonco.model
 
 data class UserModel(
-    var userId: String = "",
+    // User data model for Firebase authentication
+    val userId: String = "",
     var email: String = "",
     var firstName: String = "",
     var lastName: String = "",

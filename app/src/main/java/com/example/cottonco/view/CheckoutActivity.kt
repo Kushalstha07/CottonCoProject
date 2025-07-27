@@ -45,6 +45,7 @@ class CheckoutActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CheckoutBody() {
+    // Checkout screen with payment and shipping information
     val context = LocalContext.current
     val activity = context as? Activity
     

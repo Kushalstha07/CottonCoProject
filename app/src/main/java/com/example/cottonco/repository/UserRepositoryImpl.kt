@@ -9,9 +9,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class UserRepositoryImpl: UserRepository {
-
-    val auth : FirebaseAuth = FirebaseAuth.getInstance()
+class UserRepositoryImpl : UserRepository {
+    // Firebase implementation for user authentication and data
+    private val auth = FirebaseAuth.getInstance()
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val ref: DatabaseReference= database.reference.child("Users")
 

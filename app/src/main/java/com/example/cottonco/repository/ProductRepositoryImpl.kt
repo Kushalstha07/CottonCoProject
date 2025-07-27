@@ -35,9 +35,9 @@ class ProductRepositoryImpl : ProductRepository {
         product: ProductModel,
         callback: (Boolean, String) -> Unit
     ) {
-        val id= ref.push().key.toString()
-        product.productId = id
-        ref.child(product.productId).setValue(product).addOnCompleteListener{
+        val id = ref.push().key.toString()
+        val productWithId = product.copy(productId = id)
+        ref.child(id).setValue(productWithId).addOnCompleteListener{
             if(it.isSuccessful){
                 callback(true,"product added successfully")
             }else{

@@ -61,12 +61,12 @@ fun CheckoutBody() {
     var address by remember { mutableStateOf("") }
     var city by remember { mutableStateOf("") }
     var zipCode by remember { mutableStateOf("") }
-    var selectedPaymentMethod by remember { mutableStateOf("Credit Card") }
-    var cardNumber by remember { mutableStateOf("") }
-    var expiryDate by remember { mutableStateOf("") }
-    var cvv by remember { mutableStateOf("") }
+    var selectedPaymentMethod by remember { mutableStateOf("eSewa") }
+    var phoneNumber by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var accountId by remember { mutableStateOf("") }
     
-    val paymentMethods = listOf("Credit Card", "Debit Card", "PayPal")
+    val paymentMethods = listOf("eSewa", "Khalti", "IME Pay")
     
     val gradientBrush = Brush.verticalGradient(
         colors = listOf(
@@ -330,12 +330,12 @@ fun CheckoutBody() {
                         }
                     }
                     
-                    if (selectedPaymentMethod.contains("Card")) {
+                    if (selectedPaymentMethod.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(16.dp))
                         OutlinedTextField(
-                            value = cardNumber,
-                            onValueChange = { cardNumber = it },
-                            label = { Text("Card Number") },
+                            value = phoneNumber,
+                            onValueChange = { phoneNumber = it },
+                            label = { Text("Phone Number") },
                             modifier = Modifier.fillMaxWidth(),
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = Color(0xFF8B4513),
@@ -346,35 +346,32 @@ fun CheckoutBody() {
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         
-                        Row(
+                        OutlinedTextField(
+                            value = email,
+                            onValueChange = { email = it },
+                            label = { Text("Email Address") },
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            OutlinedTextField(
-                                value = expiryDate,
-                                onValueChange = { expiryDate = it },
-                                label = { Text("MM/YY") },
-                                modifier = Modifier.weight(1f),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = Color(0xFF8B4513),
-                                    unfocusedBorderColor = Color(0xFFD2691E),
-                                    focusedLabelColor = Color(0xFF8B4513),
-                                    unfocusedLabelColor = Color(0xFFD2691E)
-                                )
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFF8B4513),
+                                unfocusedBorderColor = Color(0xFFD2691E),
+                                focusedLabelColor = Color(0xFF8B4513),
+                                unfocusedLabelColor = Color(0xFFD2691E)
                             )
-                            OutlinedTextField(
-                                value = cvv,
-                                onValueChange = { cvv = it },
-                                label = { Text("CVV") },
-                                modifier = Modifier.weight(1f),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = Color(0xFF8B4513),
-                                    unfocusedBorderColor = Color(0xFFD2691E),
-                                    focusedLabelColor = Color(0xFF8B4513),
-                                    unfocusedLabelColor = Color(0xFFD2691E)
-                                )
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                        
+                        OutlinedTextField(
+                            value = accountId,
+                            onValueChange = { accountId = it },
+                            label = { Text("${selectedPaymentMethod} ID") },
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFF8B4513),
+                                unfocusedBorderColor = Color(0xFFD2691E),
+                                focusedLabelColor = Color(0xFF8B4513),
+                                unfocusedLabelColor = Color(0xFFD2691E)
                             )
-                        }
+                        )
                     }
                 }
             }

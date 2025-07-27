@@ -16,7 +16,7 @@ import android.content.pm.PackageManager
 
 class ImageUtils(
     private val activity: Activity,
-    private val context: Context
+    private val registryOwner: ActivityResultRegistryOwner
 ) {
     // Utility class for handling image selection and upload
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>

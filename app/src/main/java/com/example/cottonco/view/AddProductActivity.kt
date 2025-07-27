@@ -71,6 +71,7 @@ fun AddProductBody(
     selectedImageUri: Uri?,
     onPickImage: () -> Unit
 ) {
+    // Add product form with image selection
     var productName by remember { mutableStateOf("") }
     var productPrice by remember { mutableStateOf("") }
     var productDescription by remember { mutableStateOf("") }

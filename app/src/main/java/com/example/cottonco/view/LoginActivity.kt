@@ -84,6 +84,10 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginBody() {
+    // Login screen with Firebase authentication
+    val context = LocalContext.current
+    val activity = context as Activity
+
     val repo = remember { UserRepositoryImpl() }
     val userViewModel = remember { UserViewModel(repo) }
 
@@ -91,9 +95,6 @@ fun LoginBody() {
     var password by remember { mutableStateOf("") }
     var passwordVisibility by remember { mutableStateOf(false) }
     var rememberme by remember { mutableStateOf(true) }
-
-    val context = LocalContext.current
-    val activity = context as Activity
 
     val couroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
